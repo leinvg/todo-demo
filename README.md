@@ -17,13 +17,14 @@ Antes de empezar, necesitas tener instalado en tu computadora:
 
 - **PHP 8.3+** ([descargar](https://www.php.net/downloads))
 - **Composer** ([descargar](https://getcomposer.org/download/))
+- **Node.js 18+** ([descargar](https://nodejs.org/))
 - **Git** (opcional, solo si quieres clonar desde GitHub)
 
 **Nota:** SQLite viene incluido con PHP, no necesitas instalarlo por separado.
 
 ---
 
-## Instalación (4 pasos)
+## Instalación (5 pasos)
 
 ### 1. Clonar o descargar el proyecto
 
@@ -42,7 +43,15 @@ composer install
 
 Esto descarga todas las librerías que Laravel necesita.
 
-### 3. Configurar la aplicación
+### 3. Instalar dependencias de front-end (Tailwind/Vite)
+
+```bash
+npm install
+```
+
+Esto instala las librerías para compilar Tailwind.
+
+### 4. Configurar la aplicación
 
 ```bash
 cp .env.example .env
@@ -51,7 +60,7 @@ php artisan key:generate
 
 La primera línea copia la configuración. La segunda genera una clave de seguridad.
 
-### 4. Crear la base de datos y cargar datos de ejemplo
+### 5. Crear la base de datos y cargar datos de ejemplo
 
 ```bash
 touch database/database.sqlite
@@ -67,8 +76,16 @@ php artisan db:seed
 
 ## Ejecutar la aplicación
 
+Abre dos terminales:
+
+**Terminal 1**
 ```bash
 php artisan serve
+```
+
+**Terminal 2**
+```bash
+npm run dev
 ```
 
 Luego abre tu navegador en: **http://localhost:8000/**
