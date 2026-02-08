@@ -8,7 +8,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
+<body class="min-h-screen bg-slate-950 text-slate-50 antialiased">
     <div class="relative isolate overflow-hidden">
         <div
             class="pointer-events-none fixed inset-0 bg-[radial-gradient(900px_circle_at_20%_-10%,rgba(59,130,246,0.18),transparent_55%),radial-gradient(700px_circle_at_90%_10%,rgba(16,185,129,0.18),transparent_50%),radial-gradient(1000px_circle_at_50%_120%,rgba(14,165,233,0.12),transparent_55%)]">
@@ -19,39 +19,58 @@
                 <aside class="lg:fixed lg:inset-y-0 lg:w-sm lg:py-20 flex flex-col gap-8">
                     <div>
                         <span
-                            class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1 text-xs font-medium uppercase tracking-wider text-slate-300">
+                            class="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/3 px-3 py-1.5 text-xs  tracking-wider text-slate-400">
                             Demo Laravel
                         </span>
-                        <h1 class="mt-4 text-3xl font-semibold tracking-tight text-slate-50 sm:text-4xl">
-                            Mi lista de tareas
+                        <h1 class="mt-4 text-2xl font-semibold tracking-tight text-slate-50">
+                            Lista de tareas
                         </h1>
-                        <p class="mt-3 text-sm text-slate-300 sm:text-base">
+                        <p class="mt-2 text-sm text-slate-300">
                             Captura ideas y mantente enfocado. Todo se guarda en SQLite de manera local.
                         </p>
                     </div>
 
-                    <div class="h-px w-full bg-linear-to-r from-white/10 via-white/6 to-white/3"></div>
+                    <div class="h-px bg-white/10"></div>
+
+                    <div>
+                        <div class="grid sm:grid-cols-3 rounded-lg border border-white/10 bg-slate-900/60 divide-x divide-white/10">
+                            <div class="px-4 py-3">
+                                <p class="text-sm text-slate-400">Total</p>
+                                <p class="mt-1 text-xl font-semibold text-slate-50">{{ count($todos) }}</p>
+                            </div>
+                            <div class="px-4 py-3">
+                                <p class="text-sm text-slate-400">Completadas</p>
+                                <p class="mt-1 text-xl font-semibold text-slate-50">
+                                    {{ $todos->where('completed', true)->count() }}
+                                </p>
+                            </div>
+                            <div class="px-4 py-3">
+                                <p class="text-sm text-slate-400">Pendientes</p>
+                                <p class="mt-1 text-xl font-semibold text-slate-50">
+                                    {{ $todos->where('completed', false)->count() }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
 
                     <div>
                         <h2 class="text-lg font-semibold text-white">Nueva tarea</h2>
                         <p class="mt-1 text-sm text-slate-300">Describe lo que quieres completar hoy.</p>
 
-                        <form action="{{ route('todos.store') }}" method="POST" class="mt-5 grid gap-4">
+                        <form action="{{ route('todos.store') }}" method="POST" class="mt-6 grid gap-4">
                             @csrf
                             <label class="grid gap-2">
-                                <span
-                                    class="text-xs font-semibold uppercase tracking-widest text-slate-400">Titulo</span>
+                                <span class="text-sm font-semibold text-slate-400">Titulo</span>
                                 <input type="text" name="title" placeholder="Ej. Preparar demo de Laravel" required
-                                    class="w-full rounded-2xl border border-white/10 bg-slate-950/80 px-4 py-3 text-sm text-white placeholder:text-slate-500 shadow-inner shadow-black/20 focus:border-emerald-400/60 focus:outline-none focus:ring-2 focus:ring-emerald-400/30">
+                                    class="rounded-lg border border-white/10 bg-white/3 hover:bg-white/5 px-4 py-3 text-sm text-slate-50 placeholder:text-slate-500 focus:border-emerald-400/60 focus:outline-none focus:ring-2 focus:ring-emerald-400/30 focus:bg-white/5">
                             </label>
                             <label class="grid gap-2">
-                                <span
-                                    class="text-xs font-semibold uppercase tracking-widest text-slate-400">Descripcion</span>
-                                <textarea name="description" rows="4" placeholder="Agrega detalles si quieres..."
-                                    class="w-full resize-none rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-500 shadow-inner shadow-black/20 focus:border-sky-400/60 focus:outline-none focus:ring-2 focus:ring-sky-400/30"></textarea>
+                                <span class="text-sm font-semibold text-slate-400">Descripcion</span>
+                                <textarea name="description" rows="4" placeholder="Agrega detalles..."
+                                    class="resize-none rounded-lg border border-white/10 bg-white/3 hover:bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-500 shadow-inner shadow-black/20 focus:border-emerald-400/50 focus:outline-none focus:ring-2 focus:ring-emerald-400/30 focus:bg-white/5"></textarea>
                             </label>
                             <button type="submit"
-                                class="group inline-flex items-center justify-center gap-2 rounded-lg bg-yellow-400/20 px-5 py-3 text-sm font-semibold text-yellow-200 transition hover:bg-yellow-400/30 cursor-pointer">
+                                class="group inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-400/20 px-5 py-3 text-sm font-semibold text-emerald-300 transition hover:bg-emerald-400/25 cursor-pointer border border-emerald-400/30">
                                 <span>Agregar tarea</span>
                                 <span class="text-base transition group-hover:translate-x-0.5">→</span>
                             </button>
@@ -60,32 +79,6 @@
                 </aside>
 
                 <div class="col-start-2 space-y-6">
-                    <div class="rounded-3xl border border-white/10 bg-white/5 p-6 sm:p-8">
-                        <div class="flex items-center justify-between">
-                            <h2 class="text-lg font-semibold text-white">Resumen</h2>
-                            <span class="text-xs uppercase tracking-widest text-slate-400">{{ count($todos) }}
-                                total</span>
-                        </div>
-                        <div class="mt-4 grid gap-3 sm:grid-cols-3">
-                            <div class="rounded-2xl border border-white/10 bg-slate-900/60 px-4 py-3">
-                                <p class="text-xs uppercase tracking-widest text-slate-400">Total</p>
-                                <p class="mt-1 text-2xl font-semibold text-white">{{ count($todos) }}</p>
-                            </div>
-                            <div class="rounded-2xl border border-white/10 bg-slate-900/60 px-4 py-3">
-                                <p class="text-xs uppercase tracking-widest text-slate-400">Completadas</p>
-                                <p class="mt-1 text-2xl font-semibold text-white">
-                                    {{ $todos->where('completed', true)->count() }}
-                                </p>
-                            </div>
-                            <div class="rounded-2xl border border-white/10 bg-slate-900/60 px-4 py-3">
-                                <p class="text-xs uppercase tracking-widest text-slate-400">Pendientes</p>
-                                <p class="mt-1 text-2xl font-semibold text-white">
-                                    {{ $todos->where('completed', false)->count() }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
                     <div>
                         <div class="flex items-center justify-between">
                             <h2 class="text-xl font-semibold text-white">Tareas</h2>
