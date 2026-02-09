@@ -15,138 +15,225 @@
         </div>
 
         <main class="relative mx-auto w-full max-w-6xl px-6 py-14 sm:py-20">
-            <section class="lg:grid lg:grid-cols-[384px_1fr] lg:gap-12">
-                <aside class="lg:fixed lg:inset-y-0 lg:w-sm lg:py-20 flex flex-col gap-8">
-                    <div>
-                        <span
-                            class="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/3 px-3 py-1.5 text-xs  tracking-wider text-slate-400">
-                            Demo Laravel
-                        </span>
-                        <h1 class="mt-4 text-2xl font-semibold tracking-tight text-slate-50">
-                            Lista de tareas
-                        </h1>
-                        <p class="mt-2 text-sm text-slate-300">
-                            Captura ideas y mantente enfocado. Todo se guarda en SQLite de manera local.
-                        </p>
-                    </div>
+            <section class="lg:grid lg:grid-cols-[320px_1fr] lg:gap-16">
+                <aside class="lg:fixed lg:inset-y-0 lg:w-xs lg:py-20 flex flex-col">
+                    <span
+                        class="self-start rounded-lg border border-white/10 bg-white/3 px-3 py-1.5 text-xs tracking-wider font-mono text-slate-400">
+                        Laravel
+                    </span>
+                    <h1 class="mt-8 text-2xl font-semibold tracking-tight text-slate-50">
+                        Lista de tareas
+                    </h1>
+                    <p class="mt-2 text-sm text-slate-300">
+                        Captura ideas y mantente enfocado. Todo se guarda en SQLite de manera local.
+                    </p>
 
-                    <div class="h-px bg-white/10"></div>
+                    <div class="h-px bg-white/10 my-8"></div>
 
-                    <div>
-                        <div class="grid sm:grid-cols-3 rounded-lg border border-white/10 bg-slate-900/60 divide-x divide-white/10">
-                            <div class="px-4 py-3">
-                                <p class="text-sm text-slate-400">Total</p>
-                                <p class="mt-1 text-xl font-semibold text-slate-50">{{ count($todos) }}</p>
-                            </div>
-                            <div class="px-4 py-3">
-                                <p class="text-sm text-slate-400">Completadas</p>
-                                <p class="mt-1 text-xl font-semibold text-slate-50">
-                                    {{ $todos->where('completed', true)->count() }}
-                                </p>
-                            </div>
-                            <div class="px-4 py-3">
-                                <p class="text-sm text-slate-400">Pendientes</p>
-                                <p class="mt-1 text-xl font-semibold text-slate-50">
-                                    {{ $todos->where('completed', false)->count() }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    <h2 class="text-lg font-semibold text-slate-50">Nueva tarea</h2>
+                    <p class="mt-2 text-sm text-slate-300">Describe lo que quieres completar hoy.</p>
 
-                    <div>
-                        <h2 class="text-lg font-semibold text-white">Nueva tarea</h2>
-                        <p class="mt-1 text-sm text-slate-300">Describe lo que quieres completar hoy.</p>
-
-                        <form action="{{ route('todos.store') }}" method="POST" class="mt-6 grid gap-4">
-                            @csrf
-                            <label class="grid gap-2">
-                                <span class="text-sm font-semibold text-slate-400">Titulo</span>
-                                <input type="text" name="title" placeholder="Ej. Preparar demo de Laravel" required
-                                    class="rounded-lg border border-white/10 bg-white/3 hover:bg-white/5 px-4 py-3 text-sm text-slate-50 placeholder:text-slate-500 focus:border-emerald-400/60 focus:outline-none focus:ring-2 focus:ring-emerald-400/30 focus:bg-white/5">
-                            </label>
-                            <label class="grid gap-2">
-                                <span class="text-sm font-semibold text-slate-400">Descripcion</span>
-                                <textarea name="description" rows="4" placeholder="Agrega detalles..."
-                                    class="resize-none rounded-lg border border-white/10 bg-white/3 hover:bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-500 shadow-inner shadow-black/20 focus:border-emerald-400/50 focus:outline-none focus:ring-2 focus:ring-emerald-400/30 focus:bg-white/5"></textarea>
-                            </label>
-                            <button type="submit"
-                                class="group inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-400/20 px-5 py-3 text-sm font-semibold text-emerald-300 transition hover:bg-emerald-400/25 cursor-pointer border border-emerald-400/30">
-                                <span>Agregar tarea</span>
-                                <span class="text-base transition group-hover:translate-x-0.5">→</span>
-                            </button>
-                        </form>
-                    </div>
+                    <form action="{{ route('todos.store') }}" method="POST"
+                        class="mt-8 grid gap-4 text-sm *:[label]:grid *:[label]:gap-2 **:[label>span]:text-slate-400">
+                        @csrf
+                        <label>
+                            <span>Titulo</span>
+                            <input type="text" name="title" placeholder="Ej. Preparar demo de Laravel" required
+                                class="rounded-lg border border-white/10 hover:border-emerald-400/30 bg-white/3 hover:bg-white/7 px-4 py-3 text-slate-50 placeholder:text-slate-500 focus:border-emerald-400/60 focus:outline-none focus:ring-2 focus:ring-emerald-400/30 focus:bg-white/7 transition">
+                        </label>
+                        <label>
+                            <span>Descripción</span>
+                            <textarea name="description" rows="4" placeholder="Agrega detalles..."
+                                class="resize-none rounded-lg border border-white/10 hover:border-emerald-400/30 bg-white/3 hover:bg-white/7 px-4 py-3 text-slate-50 placeholder:text-slate-500 focus:border-emerald-400/50 focus:outline-none focus:ring-2 focus:ring-emerald-400/30 focus:bg-white/7 transition"></textarea>
+                        </label>
+                        <button type="submit"
+                            class="group flex items-center justify-center gap-2 rounded-lg bg-emerald-400/20 px-5 py-3 font-semibold text-emerald-300 transition hover:bg-emerald-400/25 cursor-pointer border border-emerald-400/30">
+                            <span>Agregar tarea</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="size-4 transition translate-y-px group-hover:translate-x-0.5">
+                                <path d="M18 8L22 12L18 16" />
+                                <path d="M2 12H22" />
+                            </svg>
+                        </button>
+                    </form>
                 </aside>
 
                 <div class="col-start-2 space-y-6">
                     <div>
                         <div class="flex items-center justify-between">
-                            <h2 class="text-xl font-semibold text-white">Tareas</h2>
-                            <span class="text-sm text-slate-400">{{ count($todos) }} en total</span>
+                            <h2 class="text-sm font-semibold uppercase tracking-widest text-slate-400">Pendientes</h2>
+                            <p class="text-sm text-slate-400 px-2">{{ $todos->where('completed', false)->count() }}</p>
                         </div>
 
-                        <div class="mt-5 grid gap-4">
-                            @forelse($todos as $todo)
+                        @php
+                            $pendingTodos = $todos->where('completed', false);
+                            $completedTodos = $todos->where('completed', true);
+                        @endphp
+
+                        <div class="mt-4 grid gap-4">
+                            @forelse($pendingTodos as $todo)
                                 <div
-                                    class="group rounded-3xl border border-white/10 bg-white/5 p-5 transition hover:-translate-y-0.5 hover:border-emerald-400/30 hover:bg-white/10">
+                                    class="group rounded-lg border border-white/10 bg-white/3 p-6 transition hover:border-emerald-400/30 hover:bg-white/7">
                                     <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                                         <div class="space-y-2">
-                                            <div class="flex items-center gap-3">
-                                                <span
-                                                    class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-900/60 text-lg">
-                                                    {{ $todo->completed ? '✓' : '•' }}
-                                                </span>
-                                                <div>
-                                                    <h3
-                                                        class="text-lg font-semibold text-white {{ $todo->completed ? 'line-through opacity-70' : '' }}">
-                                                        {{ $todo->title }}
-                                                    </h3>
-                                                    <p class="text-xs text-slate-400">Creada:
-                                                        {{ $todo->created_at->format('d/m/Y H:i') }}</p>
-                                                </div>
+                                            <div>
+                                                <h3 class="text-lg font-semibold text-white">{{ $todo->title }}</h3>
+                                                <p class="text-xs text-slate-400">Creada:
+                                                    {{ $todo->created_at->format('d/m/Y H:i') }}</p>
                                             </div>
                                             @if ($todo->description)
-                                                <p
-                                                    class="max-w-2xl text-sm text-slate-300 {{ $todo->completed ? 'line-through opacity-70' : '' }}">
+                                                <p class="max-w-2xl text-sm text-slate-300">
                                                     {{ $todo->description }}
                                                 </p>
                                             @endif
                                         </div>
-                                        <div class="flex flex-wrap gap-2">
-                                            <form action="{{ route('todos.update', $todo) }}" method="POST">
+                                        <div class="grid gap-2">
+                                            <form action="{{ route('todos.update', $todo) }}" method="POST"
+                                                class="inline-flex items-center justify-center">
                                                 @csrf
                                                 @method('PUT')
-                                                @if (!$todo->completed)
-                                                    <input type="hidden" name="completed" value="1">
-                                                    <button type="submit"
-                                                        class="rounded-2xl border border-emerald-400/30 bg-emerald-400/20 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-emerald-200 transition hover:bg-emerald-400/30">
-                                                        Completar
-                                                    </button>
-                                                @else
-                                                    <button type="submit"
-                                                        class="rounded-2xl border border-sky-400/30 bg-sky-400/20 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-sky-200 transition hover:bg-sky-400/30">
-                                                        Reabrir
-                                                    </button>
-                                                @endif
+                                                <label class="inline-flex items-center cursor-pointer">
+                                                    <input type="checkbox" name="completed" value="1"
+                                                        class="sr-only peer" onchange="this.form.submit()">
+                                                    <span
+                                                        class="text-slate-300 transition group-hover:text-emerald-200 peer-checked:hidden">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                            height="24" viewBox="0 0 24 24" fill="none"
+                                                            stroke="currentColor" stroke-width="2"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            class="size-6">
+                                                            <circle cx="12" cy="12" r="10" />
+                                                        </svg>
+                                                    </span>
+                                                    <span
+                                                        class="hidden text-emerald-300 transition peer-checked:inline-flex">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                            height="24" viewBox="0 0 24 24" fill="none"
+                                                            stroke="currentColor" stroke-width="2"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            class="size-6">
+                                                            <path d="M21.801 10A10 10 0 1 1 17 3.335" />
+                                                            <path d="m9 11 3 3L22 4" />
+                                                        </svg>
+                                                    </span>
+                                                </label>
                                             </form>
                                             <form action="{{ route('todos.destroy', $todo) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
-                                                    class="rounded-2xl border border-rose-400/30 bg-rose-400/20 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-rose-200 transition hover:bg-rose-400/30"
+                                                    class="rounded-lg p-2 text-xs font-semibold uppercase tracking-widest opacity-0 group-hover:opacity-100 text-slate-400 hover:text-rose-300 transition cursor-pointer"
                                                     onclick="return confirm('¿Eliminar esta tarea?')">
-                                                    Eliminar
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="size-6 transition">
+                                                        <path d="M10 11v6" />
+                                                        <path d="M14 11v6" />
+                                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+                                                        <path d="M3 6h18" />
+                                                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                                    </svg>
                                                 </button>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             @empty
-                                <div class="rounded-3xl border border-white/10 bg-white/5 px-6 py-12 text-center">
-                                    <p class="text-sm text-slate-300">No hay tareas aún. ¡Crea tu primera tarea arriba!
-                                    </p>
-                                </div>
+                                @if ($completedTodos->isEmpty())
+                                    <div class="rounded-lg border border-white/10 bg-white/5 px-6 py-12 text-center">
+                                        <p class="text-sm text-slate-300">No hay tareas aún. ¡Crea tu primera tarea
+                                            arriba!
+                                        </p>
+                                    </div>
+                                @endif
                             @endforelse
+
+                            @if ($completedTodos->isNotEmpty())
+                                <div class="h-px bg-white/10 my-8"></div>
+                                <div class="flex items-center justify-between pt-2">
+                                    <h3 class="text-sm font-semibold uppercase tracking-widest text-slate-400">
+                                        Completadas
+                                    </h3>
+                                    <p class="text-sm text-slate-400 px-2">{{ $completedTodos->count() }}</p>
+                                </div>
+
+                                @foreach ($completedTodos as $todo)
+                                    <div
+                                        class="group rounded-lg border border-white/10 bg-white/3 p-5 transition hover:border-emerald-400/30 hover:bg-white/7">
+                                        <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                                            <div class="space-y-2">
+                                                <div>
+                                                    <h3
+                                                        class="text-lg font-semibold text-white line-through opacity-50">
+                                                        {{ $todo->title }}
+                                                    </h3>
+                                                    <p class="text-xs text-slate-400">Creada:
+                                                        {{ $todo->created_at->format('d/m/Y H:i') }}</p>
+                                                </div>
+                                                @if ($todo->description)
+                                                    <p
+                                                        class="max-w-2xl text-sm text-slate-300 line-through opacity-50">
+                                                        {{ $todo->description }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                            <div class="grid gap-2">
+                                                <form action="{{ route('todos.update', $todo) }}" method="POST"
+                                                    class="inline-flex items-center">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <label class="inline-flex items-center cursor-pointer">
+                                                        <input type="checkbox" name="completed" value="1"
+                                                            class="sr-only peer" onchange="this.form.submit()"
+                                                            checked>
+                                                        <span class="text-slate-300 transition peer-checked:hidden">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                height="24" viewBox="0 0 24 24" fill="none"
+                                                                stroke="currentColor" stroke-width="2"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                class="size-6">
+                                                                <circle cx="12" cy="12" r="10" />
+                                                            </svg>
+                                                        </span>
+                                                        <span
+                                                            class="hidden text-emerald-300 transition peer-checked:inline-flex">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                height="24" viewBox="0 0 24 24" fill="none"
+                                                                stroke="currentColor" stroke-width="2"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                class="size-6">
+                                                                <path d="M21.801 10A10 10 0 1 1 17 3.335" />
+                                                                <path d="m9 11 3 3L22 4" />
+                                                            </svg>
+                                                        </span>
+                                                    </label>
+                                                </form>
+                                                <form action="{{ route('todos.destroy', $todo) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="rounded-lg p-2 text-xs font-semibold uppercase tracking-widest opacity-0 group-hover:opacity-100 text-slate-400 hover:text-rose-300 transition cursor-pointer"
+                                                        onclick="return confirm('¿Eliminar esta tarea?')">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                            height="24" viewBox="0 0 24 24" fill="none"
+                                                            stroke="currentColor" stroke-width="2"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            class="size-6 transition">
+                                                            <path d="M10 11v6" />
+                                                            <path d="M14 11v6" />
+                                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+                                                            <path d="M3 6h18" />
+                                                            <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                                        </svg>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
